@@ -2,15 +2,26 @@
 package com.example.sample02;
 
 import android.os.Bundle;
-import android.app.Activity;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 
-public class MainActivity extends Activity {
+public class MainActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        this.setContentView(R.layout.activity_main);
+
+        FragmentManager manager = this.getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        String fragmentName = MainFragment.class.getCanonicalName();
+        String tag = MainFragment.TAG;
+        Fragment fragment = Fragment.instantiate(this, fragmentName, null);
+        transaction.replace(R.id.layout_main, fragment, tag);
+        transaction.commit();
     }
 
     @Override
